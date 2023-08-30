@@ -2,6 +2,8 @@
 
 This project looks at creating an interactive game of c++ using the RayLib library!
 
+This project was really intended as a learning project for the raylib library but please feel free to enjoy a game of sudoku.
+
 ## How the game works
 
 The game uses a sudoku class to handle much of the innternal mechanics of the game, as well as generating new games.
