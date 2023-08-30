@@ -14,6 +14,8 @@ The graphics generation are handled in main.cpp.
 
 A classic 9x9 grid is generated with a sudoku puzzle loaded up. To select a square simply click on it. To input a number simply press a number key (either on the keypad or along the top of your keyboard). Note how the selected square is coloured green. Note also that original squares cannot be selected and that their numbers are shaded darker than user inputted numbers.
 
+![Sudoku Game board](https://github.com/jscanlo1/sudoku/images/sudoku.png)  
+
 ## Principles of sudoku
 
 
