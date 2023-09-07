@@ -165,7 +165,7 @@ bool Sudoku::solveGrid(std::array<std::array<int, 9>, 9> & grid) {
     getNextUnassigned(row, col, grid);
     std::cout <<"ROW: " << row << std::endl;
 
-    for(const auto num : this->numbers) {
+    for(const auto num : guessNumbers) {
         if(validRow(num,row,grid) && validColumn(num, col, grid) && validSquare(num, row, col, grid)) {
              grid[row][col] = num;
              if(solveGrid(grid)) {
