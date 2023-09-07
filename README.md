@@ -8,7 +8,6 @@ This project was really intended as a learning project for the raylib library bu
 
 The game uses a sudoku class to handle much of the innternal mechanics of the game, as well as generating new games.
 
-*** Game generator is still a work in process so it will simply generate the same game every time ***
 
 The graphics generation are handled in main.cpp. 
 

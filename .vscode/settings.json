@@ -45,5 +45,12 @@
         "streambuf": "cpp",
         "typeinfo": "cpp"
     },
-    "C_Cpp.default.compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe"
+    "C_Cpp.default.compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "c:\\Users\\johnn\\OneDrive\\Documents\\Coding Projects\\cplusplus\\sudoku\\output",
+            "binaryPath": "c:\\Users\\johnn\\OneDrive\\Documents\\Coding Projects\\cplusplus\\sudoku\\output\\main.exe",
+            "binaryArgs": []
+        }
+    ]
 }
