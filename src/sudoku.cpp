@@ -48,6 +48,59 @@ void Sudoku::sudokuGen()
 
     fillGrid(this->answerBoard);
     this->startBoard = this->answerBoard;
+    generatePuzzle(this->startBoard);
+}
+
+
+
+void Sudoku::generatePuzzle(std::array<std::array<int, 9>, 9>& grid) {
+    std::array<int,81> indexRemove;
+    std::random_device rd;
+    std::mt19937 g(rd());
+
+    for(int i = 0; i < 81; i++) {
+        indexRemove[i] = i;
+        //std::cout << indexRemove[i] << std::endl;
+    }
+    std::shuffle(indexRemove.begin(), indexRemove.end(), g);
+
+
+    for(const auto index:  indexRemove) {
+        std::cout << index<< std::endl;
+        int row = index / 9;
+        int col = index % 9;
+        int tempVal = grid[row][col];
+        grid[row][col] = UNASSIGNED;
+
+        int count = 0;
+        countSolutions(grid, count);       
+        if(count != 1) {
+            grid[row][col] = tempVal;
+        }
+
+    }
+    
+
+}
+
+void Sudoku::countSolutions(std::array<std::array<int, 9>, 9>& grid, int& count){
+    int row = -1;
+    int col = -1;
+    getNextUnassigned(row, col, grid);
+
+    if(row == -1 || col == -1) {
+        count++;
+        return;
+    }
+  
+  for(int i = 0; i < 9 && count < 2; i++) {
+    if (validRow(i,row,grid) && validColumn(i, col, grid) && validSquare(i, row, col, grid)) {
+        grid[row][col] = i;
+        countSolutions(grid, count);
+    }
+    grid[row][col] = UNASSIGNED;
+  }
+
 }
 
 std::array<std::array<int, 9>, 9> Sudoku::getStartBoard(){

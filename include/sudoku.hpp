@@ -26,6 +26,8 @@ class Sudoku{
         bool validColumn(int x, int col, std::array<std::array<int, 9>, 9> grid);
         bool validSquare(int num, int row, int col, std::array<std::array<int, 9>, 9>& grid);
         void getNextUnassigned(int& row, int& col, std::array<std::array<int, 9>, 9> & grid);
+        void generatePuzzle(std::array<std::array<int, 9>, 9>& grid);
+        void countSolutions(std::array<std::array<int, 9>, 9>& grid, int& count);
 
     public:
         Sudoku();
