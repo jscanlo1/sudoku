@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <raylib.h>
-#include <sudoku.hpp>
-
+//#include <sudoku.hpp>
+#include <sudokuGame.hpp>
 
 const int W = 100;
 const int H = 100;
@@ -11,7 +11,7 @@ bool isBoxSelected(int startX, int startY, int clickX, int clickY);
 void draw_board(const std::array<std::array<int, 9>, 9> &grid, const std::array<std::array<bool, 9>, 9> &orignalNumbers, int clickX, int clickY);
 int getPressedNumber();
 void updateNumber(std::array<std::array<int, 9>, 9> &grid, int clickX, int clickY);
-
+void checkNewGame(SudokuGame * myGame, std::array<std::array<bool, 9>, 9> &original);
 int main( void )
 {
     const int screenWidth = 1000;
@@ -19,19 +19,22 @@ int main( void )
     int clickX = 0; 
     int clickY = 0;
 
-    Sudoku * myGame = new Sudoku();
-    myGame->sudokuGen();
+    SudokuGame * myGame = new SudokuGame();
 
-    std::array<std::array<int, 9>, 9> startBoard = myGame->getStartBoard();
+    std::array<std::array<int, 9>, 9> activeBoard = myGame->getActiveBoard();
     std::array<std::array<bool, 9>, 9> originalNumber;
 
-    for(std::size_t i = 0; i < startBoard.size(); i++) {
-        for(std::size_t j = 0; j < startBoard[0].size(); j++) {
-            originalNumber[i][j] = startBoard[i][j] != 0;
+    for(std::size_t i = 0; i < activeBoard.size(); i++) {
+        for(std::size_t j = 0; j < activeBoard[0].size(); j++) {
+            originalNumber[i][j] = activeBoard[i][j] != 0;
         }
     }
-    
-    
+
+    Texture2D button = LoadTexture("resources/button.png"); // Load button texture
+    int newGameBtnState = 0;               // Button state: 0-NORMAL, 1-MOUSE_HOVER, 2-PRESSED
+    bool newGameBtnAction = false;         // Button action should be activated
+    Vector2 mousePoint = { 0.0f, 0.0f };
+    Rectangle btnBounds = { 370, 80, 300, 100};
   
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
@@ -41,6 +44,10 @@ int main( void )
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        mousePoint = GetMousePosition();
+        newGameBtnAction = false;
+        
+
         // Update selected box and update number if one has been pressed
         //----------------------------------------------------------------------------------
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
@@ -48,7 +55,23 @@ int main( void )
             clickY = GetMouseY();
         } 
 
-        updateNumber(startBoard, clickX, clickY);
+        if (CheckCollisionPointRec(mousePoint, btnBounds))
+        {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) newGameBtnState = 2;
+            else newGameBtnState = 1;
+
+            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) newGameBtnAction = true;
+        }
+        else newGameBtnState = 0;
+
+        if(newGameBtnAction){
+            checkNewGame(myGame,originalNumber);
+        }
+
+        activeBoard = myGame->getActiveBoard();
+        
+
+        updateNumber(activeBoard, clickX, clickY);
         //----------------------------------------------------------------------------------
 
 
@@ -59,9 +82,19 @@ int main( void )
             ClearBackground(RAYWHITE);
 
             DrawText("SUDOKU", 380, 10, 60, DARKGRAY);
-            draw_board(startBoard, originalNumber, clickX, clickY);
+            if(newGameBtnState == 1) {
+                DrawRectangleRec(btnBounds, GREEN);
+            } else {
+                DrawRectangleRec(btnBounds, GRAY);
+            }
+            
+            DrawText("New Game", 380, 100, 60, RED);
+            
+
+            draw_board(activeBoard, originalNumber, clickX, clickY);
 
         EndDrawing();
+        myGame->updateBoard(activeBoard);
         //----------------------------------------------------------------------------------
     }
 
@@ -166,4 +199,20 @@ bool isBoxSelected(int startX, int startY, int clickX, int clickY) {
     }
     
     return false;
+}
+
+
+void checkNewGame(SudokuGame * myGame, std::array<std::array<bool, 9>, 9> &original){
+    //std::cout << "NEW GAME \n";
+    
+
+    myGame->newGame();
+    std::array<std::array<int, 9>, 9> activeBoard = myGame->getActiveBoard();
+
+    for(std::size_t i = 0; i < activeBoard.size(); i++) {
+        for(std::size_t j = 0; j < activeBoard[0].size(); j++) {
+            original[i][j] = activeBoard[i][j] != 0;
+        }
+    }
+    
 }

@@ -17,6 +17,17 @@ A classic 9x9 grid is generated with a sudoku puzzle loaded up. To select a squa
 
 ## Principles of sudoku
 
+the priciples of sudoku are simple! The game consists of a 9x9 square. The square contains 9 3x3 boxes. The player must fill in each unit box with a number from 1-9 such that:
+
+ - Every number in a column is unique.
+ - Every number in a row is unique.
+ - Every number in a 3x3 box is unique.
+
+## How it was implemented
+
+This project uses the raylibs graphics library to visualise the game.
+
+To generate games of sudoku, the code wokrs backwards by first generating a random complete and valid sudoku grid. The puzzle generator than begins to remove numbers at random and checks to see how many possible solutions there are (there should only be in). Once the floor is reached and no more numbers can be removed the puzzle is ready!
 
 ## Installation instructions
 

@@ -60,13 +60,11 @@ void Sudoku::generatePuzzle(std::array<std::array<int, 9>, 9>& grid) {
 
     for(int i = 0; i < 81; i++) {
         indexRemove[i] = i;
-        //std::cout << indexRemove[i] << std::endl;
     }
     std::shuffle(indexRemove.begin(), indexRemove.end(), g);
 
 
     for(const auto index:  indexRemove) {
-        std::cout << index<< std::endl;
         int row = index / 9;
         int col = index % 9;
         int tempVal = grid[row][col];
@@ -118,7 +116,6 @@ std::array<std::array<int, 9>, 9> Sudoku::getAnswerBoard(){
  * @return false 
  */
 void Sudoku::fillGrid(std::array<std::array<int, 9>, 9> & grid) {
-    std::cout << "filling grid" << std::endl;
     fillBox(grid, 0);
     fillBox(grid, 1);
     fillBox(grid, 2);
@@ -216,7 +213,6 @@ bool Sudoku::solveGrid(std::array<std::array<int, 9>, 9> & grid) {
     int row, col;
 
     getNextUnassigned(row, col, grid);
-    std::cout <<"ROW: " << row << std::endl;
 
     for(const auto num : guessNumbers) {
         if(validRow(num,row,grid) && validColumn(num, col, grid) && validSquare(num, row, col, grid)) {
