@@ -27,7 +27,9 @@ the priciples of sudoku are simple! The game consists of a 9x9 square. The squar
 
 This project uses the raylibs graphics library to visualise the game.
 
-To generate games of sudoku, the code works backwards by first generating a random complete and valid sudoku grid. The puzzle generator than begins to remove numbers at random and checks to see how many possible solutions there are (there should only be in). Once the floor is reached and no more numbers can be removed the puzzle is ready!
+To generate games of sudoku, the code works backwards by first generating a random complete and valid sudoku grid. The puzzle generator than begins to remove numbers at random. The code then solves the puzzle, counting how many possible solutions there are (there should only be one solution for a valid game). 
+
+Once the floor is reached and no more numbers can be removed the puzzle is ready!
 
 ## Installation instructions
 
